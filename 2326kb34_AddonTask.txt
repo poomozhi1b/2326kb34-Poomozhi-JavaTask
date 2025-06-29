@@ -1,0 +1,454 @@
+TASK-1
+
+
+
+mysql> create database fsd_tasks;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create database fsd_tasks;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| fsd_tasks          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| resort             |
+| sakila             |
+| student            |
+| studentdb          |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.01 sec)
+
+mysql> use fsd_tasks;
+Database changed
+mysql> create table course(
+    -> course_id int primary key,
+    -> course_name varchar(30),
+    -> fee decimal(10,2)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table student(
+    -> student_id int primary key,
+    -> name varchar(30),
+    -> marks int,
+    -> course_id int,
+    -> foreign key (course_id)REFERENCES course(course_id)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_fsd_tasks |
++---------------------+
+| course              |
+| student             |
++---------------------+
+2 rows in set (0.01 sec)
+
+mysql> desc course;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| course_id   | int           | NO   | PRI | NULL    |       |
+| course_name | varchar(30)   | YES  |     | NULL    |       |
+| fee         | decimal(10,2) | YES  |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int         | NO   | PRI | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| marks      | int         | YES  |     | NULL    |       |
+| course_id  | int         | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into course values
+    -> (101,'Java Programming',9000.00),
+    -> (102,'Web Development',10500.00),
+    -> (103,'C',8000.00),
+    -> (104,'Python',9000.00),
+    -> (105,'Database Systems',11200.00),
+    -> (106,'Data Structures',12000.00),
+    -> (107,'Cloud Computing',10000.00);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> insert into student values
+    -> (1,'poomozhi',92,101),
+    -> (2,'pooja',88,102),
+    -> (3,'Aishu',78,103),
+    -> (4,'Mithu',99,104),
+    -> (5,'suba',84,105),
+    -> (6,'dhanu',84,106),
+    -> (7,'Yoga',83,107);
+Query OK, 7 rows affected (0.02 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from course;
++-----------+------------------+----------+
+| course_id | course_name      | fee      |
++-----------+------------------+----------+
+|       101 | Java Programming |  9000.00 |
+|       102 | Web Development  | 10500.00 |
+|       103 | C                |  8000.00 |
+|       104 | Python           |  9000.00 |
+|       105 | Database Systems | 11200.00 |
+|       106 | Data Structures  | 12000.00 |
+|       107 | Cloud Computing  | 10000.00 |
++-----------+------------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student;
++------------+----------+-------+-----------+
+| student_id | name     | marks | course_id |
++------------+----------+-------+-----------+
+|          1 | poomozhi |    92 |       101 |
+|          2 | pooja    |    88 |       102 |
+|          3 | Aishu    |    78 |       103 |
+|          4 | Mithu    |    99 |       104 |
+|          5 | suba     |    84 |       105 |
+|          6 | dhanu    |    84 |       106 |
+|          7 | Yoga     |    83 |       107 |
++------------+----------+-------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> update course set fee=fee*1.12;
+Query OK, 7 rows affected (0.01 sec)
+Rows matched: 7  Changed: 7  Warnings: 0
+
+mysql> select * from course;
++-----------+------------------+----------+
+| course_id | course_name      | fee      |
++-----------+------------------+----------+
+|       101 | Java Programming | 10080.00 |
+|       102 | Web Development  | 11760.00 |
+|       103 | C                |  8960.00 |
+|       104 | Python           | 10080.00 |
+|       105 | Database Systems | 12544.00 |
+|       106 | Data Structures  | 13440.00 |
+|       107 | Cloud Computing  | 11200.00 |
++-----------+------------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE books (
+    ->   book_id INT PRIMARY KEY,
+    ->   title VARCHAR(100),
+    ->   author VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE members (
+    ->   member_id INT PRIMARY KEY,
+    ->   name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE issue (
+    ->   issue_id INT PRIMARY KEY,
+    ->   book_id INT,
+    ->   member_id INT,
+    ->   issue_date DATE,
+    ->   FOREIGN KEY (book_id) REFERENCES books(book_id),
+    ->   FOREIGN KEY (member_id) REFERENCES members(member_id)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> INSERT INTO books (book_id, title, author) VALUES
+    -> (1, 'The Alchemist', 'Paulo Coelho'),
+    -> (2, 'Wings of Fire', 'A.P.J. Abdul Kalam'),
+    -> (3, 'Harry Potter', 'J.K. Rowling'),
+    -> (4, 'Think Like a Monk', 'Jay Shetty'),
+    -> (5, '1984', 'GeorgeOrwell');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+mysql> insert into members values
+    -> (1,'Pooja'),
+    -> (2, 'Aishu'),
+    -> (3, 'Anita'),
+    -> (4, 'Suba'),
+    -> (5, 'yoga');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc issue;
++------------+------+------+-----+---------+-------+
+| Field      | Type | Null | Key | Default | Extra |
++------------+------+------+-----+---------+-------+
+| issue_id   | int  | NO   | PRI | NULL    |       |
+| book_id    | int  | YES  | MUL | NULL    |       |
+| member_id  | int  | YES  | MUL | NULL    |       |
+| issue_date | date | YES  |     | NULL    |       |
++------------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into issue values
+    -> (101,1,1,'2025-06-01'),
+    -> (102,2,2,'2025-06-02'),
+    -> (103,3,3,'2025-06-03');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from books;
++---------+-------------------+--------------------+
+| book_id | title             | author             |
++---------+-------------------+--------------------+
+|       1 | The Alchemist     | Paulo Coelho       |
+|       2 | Wings of Fire     | A.P.J. Abdul Kalam |
+|       3 | Harry Potter      | J.K. Rowling       |
+|       4 | Think Like a Monk | Jay Shetty         |
+|       5 | 1984              | George Orwell      |
++---------+-------------------+--------------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from members;
++-----------+-------+
+| member_id | name  |
++-----------+-------+
+|         1 | Pooja |
+|         2 | Aishu |
+|         3 | Anita |
+|         4 | Suba  |
+|         5 | yoga  |
++-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from issue;
++----------+---------+-----------+------------+
+| issue_id | book_id | member_id | issue_date |
++----------+---------+-----------+------------+
+|      101 |       1 |         1 | 2025-06-01 |
+|      102 |       2 |         2 | 2025-06-02 |
+|      103 |       3 |         3 | 2025-06-03 |
++----------+---------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> create table department(
+    -> dept_id int primary key,
+    -> dept_name varchar(50),
+    -> location varchar(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> create table employee (
+    -> emp_id int primary key,
+    -> emp_name varchar(40),
+    -> job varchar(50),
+    -> salary decimal(10,2),
+    -> hire_date date,
+    -> dept_id int
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into department values
+    -> (1,'sales','mumbai'),
+    -> (2,'IT','bangalore'),
+    -> (3,'HR','delhi'),
+    -> (4,'Manager','coimbatore'),
+    -> (5,'Accounts','chennai');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> delete from employee where job='manager';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into employee values
+    -> (201,'pooja','Developer',4000,'1981-01-15',1),
+    -> (202,'sneha','salesman',2500,'1981-02-20',2),
+    -> (203,'Allen','clerk',4500,'1981-04-06',2),
+    -> (204,'bob','clerk',4500,'1982-04-05',3);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------+-----------+------------+
+| dept_id | dept_name | location   |
++---------+-----------+------------+
+|       1 | sales     | mumbai     |
+|       2 | IT        | bangalore  |
+|       3 | HR        | delhi      |
+|       4 | Manager   | coimbatore |
+|       5 | Accounts  | chennai    |
++---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+-----------+---------+------------+---------+
+| emp_id | emp_name | job       | salary  | hire_date  | dept_id |
++--------+----------+-----------+---------+------------+---------+
+|    201 | pooja    | Developer | 4000.00 | 1981-01-15 |       1 |
+|    202 | sneha    | salesman  | 2500.00 | 1981-02-20 |       2 |
+|    203 | Allen    | clerk     | 4500.00 | 1981-04-06 |       2 |
+|    204 | bob      | clerk     | 4500.00 | 1982-04-05 |       3 |
++--------+----------+-----------+---------+------------+---------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+TASK-2:
+
+mysql> select * from student where marks > 80;
++------------+----------+-------+-----------+
+| student_id | name     | marks | course_id |
++------------+----------+-------+-----------+
+|          1 | poomozhi |    92 |       101 |
+|          2 | pooja    |    88 |       102 |
+|          4 | Mithu    |    99 |       104 |
+|          5 | suba     |    84 |       105 |
+|          6 | dhanu    |    84 |       106 |
+|          7 | Yoga     |    83 |       107 |
++------------+----------+-------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from course order by fee asc;
++-----------+------------------+----------+
+| course_id | course_name      | fee      |
++-----------+------------------+----------+
+|       103 | C                |  8960.00 |
+|       101 | Java Programming | 10080.00 |
+|       104 | Python           | 10080.00 |
+|       107 | Cloud Computing  | 11200.00 |
+|       102 | Web Development  | 11760.00 |
+|       105 | Database Systems | 12544.00 |
+|       106 | Data Structures  | 13440.00 |
++-----------+------------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from course where course_name like 'j%';
++-----------+------------------+----------+
+| course_id | course_name      | fee      |
++-----------+------------------+----------+
+|       101 | Java Programming | 10080.00 |
++-----------+------------------+----------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where job='salesman' and salary > 2000;
++--------+----------+----------+---------+------------+---------+
+| emp_id | emp_name | job      | salary  | hire_date  | dept_id |
++--------+----------+----------+---------+------------+---------+
+|    202 | sneha    | salesman | 2500.00 | 1981-02-20 |       2 |
++--------+----------+----------+---------+------------+---------+
+1 row in set (0.00 sec)
+
+
+
+
+
+TASK-3:
+
+mysql> select course_id,count(*) as student_count from student group by course_id;
++-----------+---------------+
+| course_id | student_count |
++-----------+---------------+
+|       101 |             1 |
+|       102 |             1 |
+|       103 |             1 |
+|       104 |             1 |
+|       105 |             1 |
+|       106 |             1 |
+|       107 |             1 |
++-----------+---------------+
+7 rows in set (0.01 sec)
+
+mysql> select dept_id,avg(salary) as avg_salary from employee group by dept_id;
++---------+-------------+
+| dept_id | avg_salary  |
++---------+-------------+
+|       1 | 4000.000000 |
+|       2 | 3500.000000 |
+|       3 | 4500.000000 |
++---------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> select dept_id, max(salary) as max_salary, min(salary) as min_salary 
+    -> from employee group by dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' dept_id' at line 2
+mysql> SELECT dept_id, MAX(salary) AS max_salary, MIN(salary) AS min_salary 
+    -> FROM employee GROUP BY dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' BY dept_id' at line 2
+mysql> select dept_id, max(salary) as max_salary,min(salary) as min_salary
+    -> from employee
+    -> group by dept_id;
++---------+------------+------------+
+| dept_id | max_salary | min_salary |
++---------+------------+------------+
+|       1 |    4000.00 |    4000.00 |
+|       2 |    4500.00 |    2500.00 |
+|       3 |    4500.00 |    4500.00 |
++---------+------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> select
+    -> emp_name,
+    -> salary as sal,
+    -> salary*3 as dream_salary
+    -> from employee;
++----------+---------+--------------+
+| emp_name | sal     | dream_salary |
++----------+---------+--------------+
+| pooja    | 4000.00 |     12000.00 |
+| sneha    | 2500.00 |      7500.00 |
+| Allen    | 4500.00 |     13500.00 |
+| bob      | 4500.00 |     13500.00 |
++----------+---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id
+    -> from employee
+    -> group by dept_id
+    -> having sum(salary)>5000;
++---------+
+| dept_id |
++---------+
+|       2 |
++---------+
+1 row in set (0.00 sec)
+
+
+TAK-4
+mysql> select emp_name,hire_date,dept_name from employee join department on employee.dept_id = department.dept_id where year(hire_date)=1981 and month(hire_date)<=6;
++----------+------------+-----------+
+| emp_name | hire_date  | dept_name |
++----------+------------+-----------+
+| pooja    | 1981-01-15 | sales     |
+| sneha    | 1981-02-20 | IT        |
+| Allen    | 1981-04-06 | IT        |
++----------+------------+-----------+
+3 rows in set (0.01 sec)
+
+
+
+mysql> select course_name,fee from course where fee>10000;
++------------------+----------+
+| course_name      | fee      |
++------------------+----------+
+| Java Programming | 10080.00 |
+| Web Development  | 11760.00 |
+| Python           | 10080.00 |
+| Database Systems | 12544.00 |
+| Data Structures  | 13440.00 |
+| Cloud Computing  | 11200.00 |
++------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct salary from employee order by salary desc limit 1 offset 2;
++---------+
+| salary  |
++---------+
+| 2500.00 |
++---------+
+1 row in set (0.00 sec)
+
