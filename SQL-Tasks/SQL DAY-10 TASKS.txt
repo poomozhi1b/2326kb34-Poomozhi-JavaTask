@@ -1,0 +1,44 @@
+SQL DAY-10 TASKS:
+
+mysql> select * from student where marks > 80;
++------------+----------+-------+-----------+
+| student_id | name     | marks | course_id |
++------------+----------+-------+-----------+
+|          1 | poomozhi |    92 |       101 |
+|          2 | pooja    |    88 |       102 |
+|          4 | Mithu    |    99 |       104 |
+|          5 | suba     |    84 |       105 |
+|          6 | dhanu    |    84 |       106 |
+|          7 | Yoga     |    83 |       107 |
++------------+----------+-------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from course order by fee asc;
++-----------+------------------+----------+
+| course_id | course_name      | fee      |
++-----------+------------------+----------+
+|       103 | C                |  8960.00 |
+|       101 | Java Programming | 10080.00 |
+|       104 | Python           | 10080.00 |
+|       107 | Cloud Computing  | 11200.00 |
+|       102 | Web Development  | 11760.00 |
+|       105 | Database Systems | 12544.00 |
+|       106 | Data Structures  | 13440.00 |
++-----------+------------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select * from books where title like 'W%';
++-----------+------------------+--------------------+
+| book_id   | title            | author             |
++-----------+------------------+--------------------+
+|       2   | Wings of Fire    | A.P.J. Abdul Kalam |
++-----------+------------------+--------------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where job='salesman' and salary > 2000;
++--------+----------+----------+---------+------------+---------+
+| emp_id | emp_name | job      | salary  | hire_date  | dept_id |
++--------+----------+----------+---------+------------+---------+
+|    202 | sneha    | salesman | 2500.00 | 1981-02-20 |       2 |
++--------+----------+----------+---------+------------+---------+
+1 row in set (0.00 sec)

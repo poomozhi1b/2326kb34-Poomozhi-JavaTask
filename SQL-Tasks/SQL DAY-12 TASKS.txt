@@ -1,0 +1,36 @@
+SQL DAY-12 TASKS:
+
+
+mysql> select emp_name,hire_date,dept_name from employee join department on employee.dept_id = department.dept_id where year(hire_date)=1981 and month(hire_date)<=6;
++----------+------------+-----------+
+| emp_name | hire_date  | dept_name |
++----------+------------+-----------+
+| pooja    | 1981-01-15 | sales     |
+| sneha    | 1981-02-20 | IT        |
+| Allen    | 1981-04-06 | IT        |
++----------+------------+-----------+
+3 rows in set (0.01 sec)
+
+
+
+mysql> select course_name,fee from course where fee>10000;
++------------------+----------+
+| course_name      | fee      |
++------------------+----------+
+| Java Programming | 10080.00 |
+| Web Development  | 11760.00 |
+| Python           | 10080.00 |
+| Database Systems | 12544.00 |
+| Data Structures  | 13440.00 |
+| Cloud Computing  | 11200.00 |
++------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct salary from employee order by salary desc limit 1 offset 2;
++---------+
+| salary  |
++---------+
+| 2500.00 |
++---------+
+1 row in set (0.00 sec)
+
